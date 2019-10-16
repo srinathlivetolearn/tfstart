@@ -103,6 +103,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+#models
+*.h5
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

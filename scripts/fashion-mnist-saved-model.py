@@ -14,27 +14,7 @@ test_images = test_images / 255.0
 train_images_reshape = train_images.reshape(train_images.shape[0], *image_shape)
 test_images_reshape = test_images.reshape(test_images.shape[0], *image_shape)
 
-model = keras.Sequential([
-    keras.layers.Conv2D(32, kernel_size=3, activation='relu', input_shape=image_shape, kernel_initializer='he_normal',
-                        name='Conv2D-1'),
-    keras.layers.MaxPooling2D(pool_size=2, name='MaxPool'),
-    keras.layers.Dropout(0.25, name='Dropout-1'),
-    keras.layers.Conv2D(64, kernel_size=3, activation='relu', name='Conv2D-2'),
-    keras.layers.Dropout(0.25, name='Dropout-2'),
-    keras.layers.Conv2D(128, kernel_size=3, activation='relu', name='Conv2D-3'),
-    keras.layers.Dropout(0.4, name='Dropout-3'),
-    keras.layers.Flatten(name='flatten'),
-    keras.layers.Dense(1024, activation='relu', name='Dense'),
-    keras.layers.Dropout(0.4, name='Dropout'),
-    keras.layers.Dense(10, activation='softmax', name='Output')
-])
-
-model.summary()
-
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-history = model.fit(train_images_reshape, train_labels, batch_size=512, epochs=50)
-
-model.save('../models/fashion_mnist_50_epochs.h5')
+model = keras.models.load_model('../models/fashion_mnist_50_epochs.h5')
 
 test_loss, test_accuracy = model.evaluate(test_images_reshape, test_labels)
 print('\nTest accuracy: ', test_accuracy)
