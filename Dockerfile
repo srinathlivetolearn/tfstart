@@ -6,4 +6,6 @@ COPY models /home/$NB_USER/work/models
 
 RUN pip install ipympl
 
+RUN jupyter labextension install jupyter-matplotlib
+
 ENTRYPOINT ["jupyter", "lab"]
